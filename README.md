@@ -1,1 +1,1 @@
-# California-Marketing
+# CaliforniaMarketing
