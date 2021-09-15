@@ -1,0 +1,4246 @@
+{
+	"info": {
+		"_postman_id": "2c37f7ee-8595-4210-805c-92d468b0f3d9",
+		"name": "User's Address",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Positive testing TC-02-01, TC-02-03",
+			"item": [
+				{
+					"name": "Check new (test) address does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new address does not exist\r",
+									"//test#1\r",
+									"pm.test(\"new address does not exist, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"Milky Way\")\r",
+									"    pm.response.to.not.have.jsonBody(\"Galaxy\")\r",
+									"    pm.response.to.not.have.jsonBody(\"10670 South 1000 East\")\r",
+									"    pm.response.to.not.have.jsonBody(\"Mark\")\r",
+									"  });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new address does not exist, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.firstName).to.not.eql(\"Milky Way\");\r",
+									"    pm.expect(jsonData.lastName).to.not.eql(\"Galaxy\");\r",
+									"    pm.expect(jsonData.addressLine1).to.not.eql(\"10670 South 1000 East\");\r",
+									"    pm.expect(jsonData.firstName).to.not.eql(\"Mark\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02-01 Add New Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has specific info ('id')\r",
+									"pm.test(\"body has specific info ('id')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "AxeHcOZoCd2CosSQTvKWPNMGVQKAP3eKnSDv1h7PJfQ.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAxVDE4OjIyOjQwLjUwNFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMVQyMjoyMjo0MC41MDRaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"fullName\": {\r\n            \"firstName\": \"Milky Way\",\r\n            \"lastName\": \"Galaxy\"\r\n        },\r\n        \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"10670 South 1000 East\",\r\n        \"addressLine2\": \"Apt.444\",\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"Sandy\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"UT\",\r\n        \"zipCode\": \"84094\",\r\n        \"phoneNumber\": \"14151122333\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check new address was added",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has specific info (new address 'id')\r",
+									"pm.test(\"body has address id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"a6f971d1-bef9-4506-8ce4-0d26a02dce0f\");\r",
+									"});\r",
+									"\r",
+									"//Test for body has all keys\r",
+									"pm.test(\"body has all keys\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"country\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"subdivision\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"city\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipCode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"addressLine1\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"addressLine2\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"isDefaultAddress\");\r",
+									"    });\r",
+									"\r",
+									"//Test for key=value is correct\r",
+									"pm.test(\"new address is correctly posted, new address is not a default one\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(\"a6f971d1-bef9-4506-8ce4-0d26a02dce0f\");\r",
+									"    pm.expect(jsonData.firstName).to.eql(\"Milky Way\");\r",
+									"    pm.expect(jsonData.lastName).to.eql(\"Galaxy\");\r",
+									"    pm.expect(jsonData.addressLine1).to.eql(\"10670 South 1000 East\");\r",
+									"    pm.expect(jsonData.addressLine2).to.eql(\"Apt.444\");\r",
+									"    pm.expect(jsonData.country).to.eql(\"USA\");\r",
+									"    pm.expect(jsonData.subdivision).to.eql(\"UT\");\r",
+									"    pm.expect(jsonData.city).to.eql(\"Sandy\");\r",
+									"    pm.expect(jsonData.zipCode).to.eql(\"84094\");\r",
+									"    pm.expect(jsonData.phoneNumber).to.eql(\"14151122333\");\r",
+									"    pm.expect(jsonData.isDefaultAddress).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"//Test for new address was posted\r",
+									"pm.test(\"new addresses was posted\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Milky Way\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Galaxy\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"10670 South 1000 East\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/a6f971d1-bef9-4506-8ce4-0d26a02dce0f",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"a6f971d1-bef9-4506-8ce4-0d26a02dce0f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02-01 Setup  New Address as Default",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"  \r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"id\": \"a6f971d1-bef9-4506-8ce4-0d26a02dce0f\",\r\n        \"fullName\": {\r\n            \"firstName\": \"Milky Way\",\r\n            \"lastName\": \"Galaxy\"\r\n        },\r\n        \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"10670 South 1000 East\",\r\n        \"addressLine2\": \"Apt.444\",\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"Sandy\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"UT\",\r\n        \"zipCode\": \"84094\",\r\n        \"phoneNumber\": \"14151122333\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": true,\r\n    \"fieldMask\": {\r\n        \"paths\": [\r\n            \"fullName.firstName\",\r\n            \"fullName.lastName\",\r\n            \"addressLine1\",\r\n            \"city\",\r\n            \"country\",\r\n            \"subdivision\",\r\n            \"zipCode\",\r\n            \"phoneNumber\",\r\n            \"location.latitude\",\r\n            \"location.longitude\",\r\n            \"setAsDefault\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/a6f971d1-bef9-4506-8ce4-0d26a02dce0f",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"a6f971d1-bef9-4506-8ce4-0d26a02dce0f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check new address is a Default one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has specific info (new address 'id')\r",
+									"pm.test(\"body has specific info ('id')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"a6f971d1-bef9-4506-8ce4-0d26a02dce0f\");\r",
+									"});\r",
+									"\r",
+									"//Test for body has all keys\r",
+									"pm.test(\"body has all keys\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"country\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"subdivision\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"city\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipCode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"addressLine1\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"addressLine2\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"phoneNumber\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"isDefaultAddress\");\r",
+									"    });\r",
+									"\r",
+									"//Test for new address is correctly posted, new address is a default one\r",
+									"//test#1 key=value is correct\r",
+									"pm.test(\"new address is correctly posted, new address is a default one, test#1\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"   //pm.expect(jsonData.firstName).to.eql(\"Milky Way\");\r",
+									"   //pm.expect(jsonData.lastName).to.eql(\"Galaxy\");\r",
+									"   // pm.expect(jsonData.addressLine1).to.eql(\"10670 South 1000 East\");\r",
+									"    //pm.expect(jsonData.addressLine2).to.eql(\"Apt.444\");\r",
+									"   // pm.expect(jsonData.country).to.eql(\"USA\");\r",
+									"    //pm.expect(jsonData.subdivision).to.eql(\"UT\");\r",
+									"    // pm.expect(jsonData.city).to.eql(\"Sandy\");\r",
+									"    //pm.expect(jsonData.zipCode).to.eql(\"84094\");\r",
+									"    //pm.expect(jsonData.phoneNumber).to.eql(\"14151122333\");\r",
+									"    pm.expect(jsonData.isDefaultAddress).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"//test#2\r",
+									"pm.test(\"new address is correctly posted, new address is a default one, test#2\", function () {\r",
+									"    pm.response.to.have.body( '{\"address\":{\"id\":\"a6f971d1-bef9-4506-8ce4-0d26a02dce0f\",\"fullName\":{\"firstName\":\"Milky Way\",\"lastName\":\"Galaxy\"},\"country\":\"USA\",\"subdivision\":\"UT\",\"city\":\"Sandy\",\"zipCode\":\"84094\",\"phoneNumber\":\"14151122333\",\"addressLine1\":\"10670 South 1000 East\",\"addressLine2\":\"Apt.444\",\"location\":{\"latitude\":40.55791230000001,\"longitude\":-111.8628135}},\"isDefaultAddress\":true}');\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/a6f971d1-bef9-4506-8ce4-0d26a02dce0f",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"a6f971d1-bef9-4506-8ce4-0d26a02dce0f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check previous address is not a Default one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has specific info (address 'id')\r",
+									"pm.test(\"body has correct address id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77\");\r",
+									"});\r",
+									"\r",
+									"//Test for body has all keys\r",
+									"pm.test(\"body has all keys\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"country\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"subdivision\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"city\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipCode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"addressLine1\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"phoneNumber\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"isDefaultAddress\");\r",
+									"    });\r",
+									"\r",
+									"//Test for key=value is correct\r",
+									"//test#1\r",
+									"pm.test(\"old address is not a default one, test#1\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"   //pm.expect(jsonData.firstName).to.eql(\"Mark\");\r",
+									"   //pm.expect(jsonData.lastName).to.eql(\"Twain\");\r",
+									"      // pm.expect(jsonData.addressLine1).to.eql(\"11251 S STATE ST APT C107\");\r",
+									"       // pm.expect(jsonData.country).to.eql(\"USA\");\r",
+									"    //pm.expect(jsonData.subdivision).to.eql(\"UT\");\r",
+									"    // pm.expect(jsonData.city).to.eql(\"SANDY\");\r",
+									"    //pm.expect(jsonData.zipCode).to.eql(\"84070\");\r",
+									"    //pm.expect(jsonData.phoneNumber).to.eql(\"8012233444\");\r",
+									"    pm.expect(jsonData.isDefaultAddress).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"//test#2\r",
+									"pm.test(\"old address is not a default one, test#2\", function () {\r",
+									"    pm.response.to.have.body('{\"address\":{\"id\":\"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77\",\"fullName\":{\"firstName\":\"Mark\",\"lastName\":\"Twain\"},\"country\":\"USA\",\"subdivision\":\"UT\",\"city\":\"SANDY\",\"zipCode\":\"84070\",\"phoneNumber\":\"18012233444\",\"addressLine1\":\"11251 S STATE ST APT C107\",\"location\":{\"latitude\":40.55791230000001,\"longitude\":-111.8628135}},\"isDefaultAddress\":false}');\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02-01 Setup back the Default Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"  \r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"id\": \"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77\",\r\n        \"fullName\": {\r\n            \"firstName\": \"Mark\",\r\n            \"lastName\": \"Twain\"\r\n        },\r\n        \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"11251 S STATE ST APT C107\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"Sandy\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"UT\",\r\n        \"zipCode\": \"84070\",\r\n        \"phoneNumber\": \"18012233444\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": true,\r\n    \"fieldMask\": {\r\n        \"paths\": [\r\n            \"fullName.firstName\",\r\n            \"fullName.lastName\",\r\n            \"addressLine1\",\r\n            \"city\",\r\n            \"country\",\r\n            \"subdivision\",\r\n            \"zipCode\",\r\n            \"phoneNumber\",\r\n            \"location.latitude\",\r\n            \"location.longitude\",\r\n            \"setAsDefault\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check previous address is not a Default one Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has specific info (address 'id')\r",
+									"pm.test(\"body has correct address id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77\");\r",
+									"});\r",
+									"\r",
+									"//Test for body has all keys\r",
+									"pm.test(\"body has all keys\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"country\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"subdivision\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"city\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipCode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"addressLine1\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"phoneNumber\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"isDefaultAddress\");\r",
+									"    });\r",
+									"\r",
+									"//Test for key=value is correct\r",
+									"//test#1\r",
+									"pm.test(\"old address is a default one, test#1\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"   //pm.expect(jsonData.firstName).to.eql(\"Mark\");\r",
+									"   //pm.expect(jsonData.lastName).to.eql(\"Twain\");\r",
+									"      // pm.expect(jsonData.addressLine1).to.eql(\"11251 S STATE ST APT C107\");\r",
+									"       // pm.expect(jsonData.country).to.eql(\"USA\");\r",
+									"    //pm.expect(jsonData.subdivision).to.eql(\"UT\");\r",
+									"    // pm.expect(jsonData.city).to.eql(\"SANDY\");\r",
+									"    //pm.expect(jsonData.zipCode).to.eql(\"84070\");\r",
+									"    //pm.expect(jsonData.phoneNumber).to.eql(\"8012233444\");\r",
+									"    pm.expect(jsonData.isDefaultAddress).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"//test#2\r",
+									"pm.test(\"old address is a default one, test#2\", function () {\r",
+									"    pm.response.to.have.body('{\"address\":{\"id\":\"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77\",\"fullName\":{\"firstName\":\"Mark\",\"lastName\":\"Twain\"},\"country\":\"USA\",\"subdivision\":\"UT\",\"city\":\"SANDY\",\"zipCode\":\"84070\",\"phoneNumber\":\"18012233444\",\"addressLine1\":\"11251 S STATE ST APT C107\",\"location\":{\"latitude\":40.55791230000001,\"longitude\":-111.8628135}},\"isDefaultAddress\":true}');\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02-03 Adit all data of a New Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"  \r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"id\": \"a6f971d1-bef9-4506-8ce4-0d26a02dce0f\",\r\n        \"fullName\": {\r\n            \"firstName\": \"Our Milky Way\",\r\n            \"lastName\": \"Lovely Galaxy\"\r\n        },\r\n        \"company\": \"OutoSpace Co\",\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"2 Av. Gabriel\",\r\n        \"addressLine2\": \"Apt.888\",\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"Paris\",\r\n        \"country\": \"France\",\r\n        \"subdivision\": \"Centre\",\r\n        \"zipCode\": \"75008\",\r\n        \"phoneNumber\": \"33122333333\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false,\r\n    \"fieldMask\": {\r\n        \"paths\": [\r\n            \"fullName.firstName\",\r\n            \"fullName.lastName\",\r\n            \"addressLine1\",\r\n            \"city\",\r\n            \"country\",\r\n            \"subdivision\",\r\n            \"zipCode\",\r\n            \"phoneNumber\",\r\n            \"location.latitude\",\r\n            \"location.longitude\",\r\n            \"setAsDefault\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/a6f971d1-bef9-4506-8ce4-0d26a02dce0f",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"a6f971d1-bef9-4506-8ce4-0d26a02dce0f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check new address was adited and it is not a defoult one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has specific info (new address 'id')\r",
+									"pm.test(\"body has specific info ('id')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"a6f971d1-bef9-4506-8ce4-0d26a02dce0f\");\r",
+									"});\r",
+									"\r",
+									"//Test for body has all keys\r",
+									"pm.test(\"body has specific info (correct First Name)\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"company\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"country\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"subdivision\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"city\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"zipCode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"addressLine1\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"addressLine2\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"isDefaultAddress\");\r",
+									"    });\r",
+									"\r",
+									"//Test for key=value is correct\r",
+									"//test#1\r",
+									"pm.test(\"new address is correctly posted, new address is not a default one\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"   //pm.expect(jsonData.firstName).to.eql('Our Milky Way');\r",
+									"   //pm.expect(jsonData.lastName).to.eql(\"Lovely Galaxy\");\r",
+									"    //pm.expect(jsonData.lastName).to.eql(\"OutoSpace Co\");\r",
+									"   // pm.expect(jsonData.addressLine1).to.eql(\"2 Av. Gabriel\");\r",
+									"    //pm.expect(jsonData.addressLine2).to.eql(\"Apt.888\");\r",
+									"   // pm.expect(jsonData.country).to.eql(\"France\");\r",
+									"    //pm.expect(jsonData.subdivision).to.eql(\"Centre\");\r",
+									"    // pm.expect(jsonData.city).to.eql(\"Paris\");\r",
+									"    //pm.expect(jsonData.zipCode).to.eql(\"75008\");\r",
+									"    //pm.expect(jsonData.phoneNumber).to.eql(\"33122333333\");\r",
+									"    pm.expect(jsonData.isDefaultAddress).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"//test#2\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body('{\"address\":{\"id\":\"a6f971d1-bef9-4506-8ce4-0d26a02dce0f\",\"fullName\":{\"firstName\":\"Our Milky Way\",\"lastName\":\"Lovely Galaxy\"},\"country\":\"France\",\"subdivision\":\"Centre\",\"city\":\"Paris\",\"zipCode\":\"75008\",\"phoneNumber\":\"33122333333\",\"company\":\"OutoSpace Co\",\"addressLine1\":\"2 Av. Gabriel\",\"addressLine2\":\"Apt.888\",\"location\":{\"latitude\":40.55791230000001,\"longitude\":-111.8628135}},\"isDefaultAddress\":false}');\r",
+									"});\r",
+									"\r",
+									"//Test for new address info was posted\r",
+									"pm.test(\"new address info was posted\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Our Milky Way\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Lovely Galaxy\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"2 Av. Gabriel\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/a6f971d1-bef9-4506-8ce4-0d26a02dce0f",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"a6f971d1-bef9-4506-8ce4-0d26a02dce0f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete new address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/a6f971d1-bef9-4506-8ce4-0d26a02dce0f",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"a6f971d1-bef9-4506-8ce4-0d26a02dce0f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check that new address was deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (400 - pass)\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has specific info ('cant_find_address_by_id')\r",
+									"pm.test(\"body has specific info ('cant_find_address_by_id')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"cant_find_address_by_id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/a6f971d1-bef9-4506-8ce4-0d26a02dce0f",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"a6f971d1-bef9-4506-8ce4-0d26a02dce0f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative testing TC-02-02, TC-03-01",
+			"item": [
+				{
+					"name": "Check new (test) addresses №1 & №2 do not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new addresses #1 and #2 do not exist\r",
+									"//test#1\r",
+									"pm.test(\"new addresses #1 and #2 do not exist, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"Enigma\")\r",
+									"    pm.response.to.not.have.jsonBody(\"Moon\")\r",
+									"    pm.response.to.not.have.jsonBody(\"\")\r",
+									"    pm.response.to.not.have.jsonBody(\"Incredible\")\r",
+									"    pm.response.to.not.have.jsonBody(\"Saturn\")\r",
+									"    pm.response.to.not.have.jsonBody(\"5700 S Lake Shore Dr\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new addresses #1 and #2 do not exist, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.firstName).to.not.eql(\"Enigma\");\r",
+									"    pm.expect(jsonData.firstName).to.not.eql(\"Incredible\");\r",
+									"    pm.expect(jsonData.lastName).to.not.eql(\"Moon\");\r",
+									"    pm.expect(jsonData.lastName).to.not.eql(\"Saturn\");\r",
+									"    pm.expect(jsonData.addressLine1).to.not.eql(\"\");\r",
+									"    pm.expect(jsonData.addressLine1).to.not.eql(\"5700 S Lake Shore Dr\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-02-02 Add New Address#1 without Street and House Data Failed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for response code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									" //   pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"fullName\": {\r\n            \"firstName\": \"Enigma\",\r\n            \"lastName\": \"Moon\"\r\n        },\r\n        \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": null,\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"New York\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"NY\",\r\n        \"zipCode\": \"11430\",\r\n        \"phoneNumber\": \"17182444444\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check new address#1 was not added",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new addresses #1 does not exist\r",
+									"//test#1\r",
+									"pm.test(\"new addresses #1 does not exist, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"Enigma\");\r",
+									"    pm.response.to.not.have.jsonBody(\"Moon\")\r",
+									"    pm.response.to.not.have.jsonBody(\"\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new addresses #1 does not exist, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.firstName).to.not.eql(\"Enigma\");\r",
+									"    pm.expect(jsonData.lastName).to.not.eql(\"Moon\");\r",
+									"    pm.expect(jsonData.addressLine1).to.not.eql(\"\");\r",
+									"});\r",
+									"\r",
+									"//Test for new addresses #1 does not exist, test#3\r",
+									"pm.test(\"new addresses #1 does not exist, test#3\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"Enigma\");\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"Moon\");\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete new address#1 if necessary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/125f02d4-78f9-447f-a014-b6ec7a635b90",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"125f02d4-78f9-447f-a014-b6ec7a635b90"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check that new address #1 was deleted if necessary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (400 - pass)\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has specific info ('cant_find_address_by_id')\r",
+									"pm.test(\"body has specific info ('cant_find_address_by_id')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"cant_find_address_by_id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/125f02d4-78f9-447f-a014-b6ec7a635b90",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"125f02d4-78f9-447f-a014-b6ec7a635b90"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03-01 Add New Address#2 with a wrong Phone Data Format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for response code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									" //   pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"fullName\": {\r\n            \"firstName\": \"Incredible\",\r\n            \"lastName\": \"Saturn\"\r\n        },\r\n        \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"5700 S Lake Shore Dr\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"Chicago\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"IL\",\r\n        \"zipCode\": \"60637\",\r\n        \"phoneNumber\": \"q7736841414\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check new address#2 was not added",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new addresses #2 does not exist\r",
+									"//test#1\r",
+									"pm.test(\"new addresses #2 does not exist, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"Incredible\")\r",
+									"    pm.response.to.not.have.jsonBody(\"Saturn\")\r",
+									"    pm.response.to.not.have.jsonBody(\"q7736841414\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new addresses #2 does not exist, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.firstName).to.eql(\"Incredible\");\r",
+									"    pm.expect(jsonData.lastName).to.not.eql(\"Saturn\");\r",
+									"    pm.expect(jsonData.phoneNumber).to.not.eql(\"q7736841414\");\r",
+									"});\r",
+									"\r",
+									"//Test for new addresses #2 does not exist, test#3\r",
+									"pm.test(\"new addresses #2 does not exist, test#3\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"Incredible\");\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"Saturn\");\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"q7736841414\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete new address#2 if necessary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/bdbea2c6-afcd-4ff8-9126-43e288adab21",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"bdbea2c6-afcd-4ff8-9126-43e288adab21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check that new address #2 was deleted if necessary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (400 - pass)\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has specific info ('cant_find_address_by_id')\r",
+									"pm.test(\"body has specific info ('cant_find_address_by_id')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"cant_find_address_by_id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/bdbea2c6-afcd-4ff8-9126-43e288adab21",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"bdbea2c6-afcd-4ff8-9126-43e288adab21"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add-Hog testing TC-03-02",
+			"item": [
+				{
+					"name": "Check new (test) addresses do not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new address does not exist\r",
+									"//test#1\r",
+									"pm.test(\"new address does not exist, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"Majestic\")\r",
+									"    pm.response.to.not.have.jsonBody(\"Jupiter\")\r",
+									"    pm.response.to.not.have.jsonBody(\"1201 N Galvin Pkwy\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new address does not exist, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.firstName).to.not.eql(\"Majestic\");\r",
+									"    pm.expect(jsonData.lastName).to.not.eql(\"Jupiter\");\r",
+									"    pm.expect(jsonData.addressLine1).to.not.eql(\"1201 N Galvin Pkwy\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Address with a wrong Phone Data Format (\"phoneNumber\": \".\")",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for response code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									" //   pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"fullName\": {\r\n            \"firstName\": \"Majestic\",\r\n            \"lastName\": \"Jupiter\"\r\n        },\r\n        \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"1201 N Galvin Pkwy\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"Phoenix\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"AZ\",\r\n        \"zipCode\": \"85008\",\r\n        \"phoneNumber\": \".\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check new address was not added",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new addresses does not exist\r",
+									"//test#1\r",
+									"pm.test(\"new addresses does not exist, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"Majestic\")\r",
+									"    pm.response.to.not.have.jsonBody(\"Jupiter\")\r",
+									"    pm.response.to.not.have.jsonBody(\"5700 S Lake Shore Dr\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new addresses does not exist, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.firstName).to.not.eql(\"Majestic\");\r",
+									"    pm.expect(jsonData.lastName).to.not.eql(\"Jupiter\");\r",
+									"    pm.expect(jsonData.addressLine1).to.not.eql(\"1201 N Galvin Pkwy\");\r",
+									"});\r",
+									"\r",
+									"//Test for new addresses does not exist, test#3\r",
+									"pm.test(\"new addresses does not exist, test#3\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"Majestic\");\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"Jupiter\");\r",
+									"    pm.expect(pm.response.text()).to.not.include(\"1201 N Galvin Pkwy\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete new address if necessary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/791c8bcc-1d0a-40d6-9a18-bc0ec570a939",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"791c8bcc-1d0a-40d6-9a18-bc0ec570a939"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check that new address #2 was deleted if necessary Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (400 - pass)\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has specific info ('cant_find_address_by_id')\r",
+									"pm.test(\"body has specific info ('cant_find_address_by_id')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"cant_find_address_by_id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "sRugAplLgPmkZg1H_uiSyZrX7sf8M4aLl9MtjcsXSLw.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA4LTI5VDE3OjQ0OjAzLjg3OFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOC0yOVQyMTo0NDowMy44NzhaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/791c8bcc-1d0a-40d6-9a18-bc0ec570a939",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"791c8bcc-1d0a-40d6-9a18-bc0ec570a939"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Boundary testing TC-03-03-XX",
+			"item": [
+				{
+					"name": "Check new (test) address does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new address does not exist\r",
+									"//test#1\r",
+									"pm.test(\"new address does not exist, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"Beautiful\")\r",
+									"    pm.response.to.not.have.jsonBody(\"Venus\")\r",
+									"    pm.response.to.not.have.jsonBody(\"3601 Lyon St\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new address does not exist, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.firstName).to.not.eql(\"Beautiful\");\r",
+									"    pm.expect(jsonData.lastName).to.not.eql(\"Venus\");\r",
+									"    pm.expect(jsonData.addressLine1).to.not.eql(\"3601 Lyon St\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03-03-05 Add New Address with a correct Phone Data Format  (Phone: 12345678900)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for response code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									" //   pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "AxeHcOZoCd2CosSQTvKWPNMGVQKAP3eKnSDv1h7PJfQ.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAxVDE4OjIyOjQwLjUwNFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMVQyMjoyMjo0MC41MDRaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"fullName\": {\r\n            \"firstName\": \"Beautiful\",\r\n            \"lastName\": \"Venus\"\r\n        },\r\n        \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"13601 Lyon St\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"San Francisco\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"CA\",\r\n        \"zipCode\": \"94123\",\r\n        \"phoneNumber\": \"12345678900\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check new address was added",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new address exists\r",
+									"//test#1\r",
+									"pm.test(\"new address exists, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.have.jsonBody(\"Beautiful\")\r",
+									"    pm.response.to.have.jsonBody(\"Venus\")\r",
+									"    pm.response.to.have.jsonBody(\"13601 Lyon St\")\r",
+									"    pm.response.to.have.jsonBody(\"12345678900\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new address exists, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.firstName).to.eql(\"Beautiful\");\r",
+									"    pm.expect(jsonData.lastName).to.eql(\"Venus\");\r",
+									"    pm.expect(jsonData.addressLine1).to.eql(\"13601 Lyon St\");\r",
+									"    pm.expect(jsonData.phoneNumber).to.eql(\"12345678900\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "AxeHcOZoCd2CosSQTvKWPNMGVQKAP3eKnSDv1h7PJfQ.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAxVDE4OjIyOjQwLjUwNFoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMVQyMjoyMjo0MC41MDRaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03-03-04 Adit  New Address with a wrong Phone Data Format  (Phone: 1234567890)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"  \r",
+									"//Test for respose code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									"//    pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"id\": \"093febb4-4b35-4eb5-b870-8e8d3ab4e609\",\r\n        \"fullName\": {\r\n            \"firstName\": \"Beautiful\",\r\n            \"lastName\": \"Venus\"\r\n        },\r\n            \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"13601 Lyon St\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"San Francisco\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"CA\",\r\n        \"zipCode\": \"94123\",\r\n        \"phoneNumber\": \"1234567890\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false,\r\n    \"fieldMask\": {\r\n        \"paths\": [\r\n            \"fullName.firstName\",\r\n            \"fullName.lastName\",\r\n            \"addressLine1\",\r\n            \"city\",\r\n            \"country\",\r\n            \"subdivision\",\r\n            \"zipCode\",\r\n            \"phoneNumber\",\r\n            \"location.latitude\",\r\n            \"location.longitude\",\r\n            \"setAsDefault\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check wrong format phone number wasn't  added",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new phone number was not posted\r",
+									"//test#1\r",
+									"pm.test(\"body has phoneNumber-key and a new phone number was not posted, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"1234567890\")\r",
+									"    pm.response.to.have.jsonBody(\"phoneNumber\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new phone number was not posted, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.phoneNumber).to.not.eql(\"1234567890\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03-03-06 Adit  New Address with a wrong Phone Data Format  (Phone: 123456789000)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"  \r",
+									"//Test for respose code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									"//    pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"id\": \"093febb4-4b35-4eb5-b870-8e8d3ab4e609\",\r\n        \"fullName\": {\r\n            \"firstName\": \"Beautiful\",\r\n            \"lastName\": \"Venus\"\r\n        },\r\n            \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"13601 Lyon St\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"San Francisco\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"CA\",\r\n        \"zipCode\": \"94123\",\r\n        \"phoneNumber\": \"123456789000\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false,\r\n    \"fieldMask\": {\r\n        \"paths\": [\r\n            \"fullName.firstName\",\r\n            \"fullName.lastName\",\r\n            \"addressLine1\",\r\n            \"city\",\r\n            \"country\",\r\n            \"subdivision\",\r\n            \"zipCode\",\r\n            \"phoneNumber\",\r\n            \"location.latitude\",\r\n            \"location.longitude\",\r\n            \"setAsDefault\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check wrong format phone number wasn't  added",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new phone number was not posted\r",
+									"//test#1\r",
+									"pm.test(\"body has phoneNumber-key and a new phone number was not posted, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"123456789000\")\r",
+									"    pm.response.to.have.jsonBody(\"phoneNumber\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new phone number was not posted, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.phoneNumber).to.not.eql(\"123456789000\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03-03-01 Adit  New Address with a wrong Phone Data Format  (Phone: (empty))",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"  \r",
+									"//Test for respose code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									"//    pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"id\": \"093febb4-4b35-4eb5-b870-8e8d3ab4e609\",\r\n        \"fullName\": {\r\n            \"firstName\": \"Beautiful\",\r\n            \"lastName\": \"Venus\"\r\n        },\r\n            \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"13601 Lyon St\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"San Francisco\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"CA\",\r\n        \"zipCode\": \"94123\",\r\n        \"phoneNumber\": \"\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false,\r\n    \"fieldMask\": {\r\n        \"paths\": [\r\n            \"fullName.firstName\",\r\n            \"fullName.lastName\",\r\n            \"addressLine1\",\r\n            \"city\",\r\n            \"country\",\r\n            \"subdivision\",\r\n            \"zipCode\",\r\n            \"phoneNumber\",\r\n            \"location.latitude\",\r\n            \"location.longitude\",\r\n            \"setAsDefault\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check wrong format phone number wasn't  added Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new phone number was not posted\r",
+									"//test#1\r",
+									"pm.test(\"body has phoneNumber-key and a new phone number was not posted, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"\")\r",
+									"    pm.response.to.have.jsonBody(\"phoneNumber\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new phone number was not posted, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.phoneNumber).to.not.eql(\"\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03-03-02 Adit  New Address with a wrong Phone Data Format  (Phone: 1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"  \r",
+									"//Test for respose code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									"//    pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"id\": \"093febb4-4b35-4eb5-b870-8e8d3ab4e609\",\r\n        \"fullName\": {\r\n            \"firstName\": \"Beautiful\",\r\n            \"lastName\": \"Venus\"\r\n        },\r\n            \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"13601 Lyon St\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"San Francisco\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"CA\",\r\n        \"zipCode\": \"94123\",\r\n        \"phoneNumber\": \"1\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false,\r\n    \"fieldMask\": {\r\n        \"paths\": [\r\n            \"fullName.firstName\",\r\n            \"fullName.lastName\",\r\n            \"addressLine1\",\r\n            \"city\",\r\n            \"country\",\r\n            \"subdivision\",\r\n            \"zipCode\",\r\n            \"phoneNumber\",\r\n            \"location.latitude\",\r\n            \"location.longitude\",\r\n            \"setAsDefault\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check wrong format phone number wasn't  added",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new phone number was not posted\r",
+									"//test#1\r",
+									"pm.test(\"body has phoneNumber-key and a new phone number was not posted, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"1\")\r",
+									"    pm.response.to.have.jsonBody(\"phoneNumber\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new phone number was not posted, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.phoneNumber).to.not.eql(\"1\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03-03-03 Adit  New Address with a wrong Phone Data Format  (Phone: 12)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"  \r",
+									"//Test for respose code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									"//    pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"id\": \"093febb4-4b35-4eb5-b870-8e8d3ab4e609\",\r\n        \"fullName\": {\r\n            \"firstName\": \"Beautiful\",\r\n            \"lastName\": \"Venus\"\r\n        },\r\n            \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"13601 Lyon St\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"San Francisco\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"CA\",\r\n        \"zipCode\": \"94123\",\r\n        \"phoneNumber\": \"12\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false,\r\n    \"fieldMask\": {\r\n        \"paths\": [\r\n            \"fullName.firstName\",\r\n            \"fullName.lastName\",\r\n            \"addressLine1\",\r\n            \"city\",\r\n            \"country\",\r\n            \"subdivision\",\r\n            \"zipCode\",\r\n            \"phoneNumber\",\r\n            \"location.latitude\",\r\n            \"location.longitude\",\r\n            \"setAsDefault\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check wrong format phone number wasn't  added",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new phone number was not posted\r",
+									"//test#1\r",
+									"pm.test(\"body has phoneNumber-key and a new phone number was not posted, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"12\")\r",
+									"    pm.response.to.have.jsonBody(\"phoneNumber\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new phone number was not posted, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.phoneNumber).to.not.eql(\"12\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC-03-03-07 Adit  New Address with a wrong Phone Data Format  (Phone: 123456)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"  \r",
+									"//Test for respose code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									"//    pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"id\": \"093febb4-4b35-4eb5-b870-8e8d3ab4e609\",\r\n        \"fullName\": {\r\n            \"firstName\": \"Beautiful\",\r\n            \"lastName\": \"Venus\"\r\n        },\r\n            \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"13601 Lyon St\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"San Francisco\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"CA\",\r\n        \"zipCode\": \"94123\",\r\n        \"phoneNumber\": \"123456\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": false,\r\n    \"fieldMask\": {\r\n        \"paths\": [\r\n            \"fullName.firstName\",\r\n            \"fullName.lastName\",\r\n            \"addressLine1\",\r\n            \"city\",\r\n            \"country\",\r\n            \"subdivision\",\r\n            \"zipCode\",\r\n            \"phoneNumber\",\r\n            \"location.latitude\",\r\n            \"location.longitude\",\r\n            \"setAsDefault\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check wrong format phone number wasn't  added",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new phone number was not posted\r",
+									"//test#1\r",
+									"pm.test(\"body has phoneNumber-key and a new phone number was not posted, test#1\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.not.have.jsonBody(\"123456\")\r",
+									"    pm.response.to.have.jsonBody(\"phoneNumber\")\r",
+									"    });\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new phone number was not posted, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.phoneNumber).to.not.eql(\"123456\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete new address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check that new address was deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (400 - pass)\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has specific info ('cant_find_address_by_id')\r",
+									"pm.test(\"body has specific info ('cant_find_address_by_id')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"cant_find_address_by_id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/093febb4-4b35-4eb5-b870-8e8d3ab4e609",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"093febb4-4b35-4eb5-b870-8e8d3ab4e609"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Equivalence Partitioning testing TC-03-04",
+			"item": [
+				{
+					"name": "check that address does not have a test phone data posted before test performance",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new test data is not posted\r",
+									"//test#1\r",
+									"//pm.test(\"new test data is not posted, test#1\", function () {\r",
+									"//    pm.response.to.not.be.error;\r",
+									"//    pm.response.to.be.withBody;\r",
+									"//    pm.response.to.have.jsonBody(\"phoneNumber\")\r",
+									"//    pm.response.to.not.have.jsonBody(\"Qw+@,>\")\r",
+									"//});\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new test data is not posted, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.phoneNumber).to.not.eql(\"Qw+@,>\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adit  the Address with a wrong Phone Data Format  (Phone: Qw+@,>)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and should have an error code status\r",
+									"pm.test(\"Response should have body and should have an error code status\", function () {\r",
+									"    pm.response.to.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"  \r",
+									"//Test for respose code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									"//    pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"id\": \"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77\",\r\n        \"fullName\": {\r\n            \"firstName\": \"Mark\",\r\n            \"lastName\": \"Twain\"\r\n        },\r\n            \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"11251 S STATE ST APT C107\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"SANDY\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"UT\",\r\n        \"zipCode\": \"84070\",\r\n        \"phoneNumber\": \"Qw+@,>\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": true,\r\n    \"fieldMask\": {\r\n        \"paths\": [\r\n            \"fullName.firstName\",\r\n            \"fullName.lastName\",\r\n            \"addressLine1\",\r\n            \"city\",\r\n            \"country\",\r\n            \"subdivision\",\r\n            \"zipCode\",\r\n            \"phoneNumber\",\r\n            \"location.latitude\",\r\n            \"location.longitude\",\r\n            \"setAsDefault\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check that the phone does not equal Qw+@,>",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new test data is not posted\r",
+									"//test#1\r",
+									"//pm.test(\"new test data is not posted, test#1\", function () {\r",
+									"//    pm.response.to.not.be.error;\r",
+									"//    pm.response.to.be.withBody;\r",
+									"//    pm.response.to.have.jsonBody(\"phoneNumber\")\r",
+									"//    pm.response.to.not.have.jsonBody(\"Qw+@,>\")\r",
+									"//});\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"new test data is not posted, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.phoneNumber).to.not.eql(\"Qw+@,>\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bring back correct phone number: 18012233444",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"  \r",
+									"//Test for respose code (200 - pass)\r",
+									"//pm.test(\"Status code is 200\", function () {\r",
+									"//    pm.response.to.have.status(200);\r",
+									"//});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Test for body has correct info ('{}')\r",
+									"pm.test(\"body has correct info ('{}')\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"{}\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n        \"id\": \"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77\",\r\n        \"fullName\": {\r\n            \"firstName\": \"Mark\",\r\n            \"lastName\": \"Twain\"\r\n        },\r\n            \"company\": null,\r\n        \"taxInfo\": {\r\n            \"id\": null,\r\n            \"type\": null\r\n        },\r\n        \"addressLine1\": \"11251 S STATE ST APT C107\",\r\n        \"addressLine2\": null,\r\n        \"street\": {\r\n            \"name\": null,\r\n            \"number\": null\r\n        },\r\n        \"city\": \"SANDY\",\r\n        \"country\": \"USA\",\r\n        \"subdivision\": \"UT\",\r\n        \"zipCode\": \"84070\",\r\n        \"phoneNumber\": \"18012233444\",\r\n        \"location\": {\r\n            \"latitude\": 40.55791230000001,\r\n            \"longitude\": -111.8628135\r\n        }\r\n    },\r\n    \"setAsDefault\": true,\r\n    \"fieldMask\": {\r\n        \"paths\": [\r\n            \"fullName.firstName\",\r\n            \"fullName.lastName\",\r\n            \"addressLine1\",\r\n            \"city\",\r\n            \"country\",\r\n            \"subdivision\",\r\n            \"zipCode\",\r\n            \"phoneNumber\",\r\n            \"location.latitude\",\r\n            \"location.longitude\",\r\n            \"setAsDefault\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check that the phone has a correct value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Response should have body and shouldn't have an error code status\r",
+									"pm.test(\"Response should have body and shouldn't have an error code status\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.be.withBody;\r",
+									"  });\r",
+									"\r",
+									"//Test for respose code (200 - pass)\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Test for response time (less then 500ms - pass)\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"//Test for response size (less then 2000B - pass)\r",
+									"pm.test(\"Response size is less than 2KB\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(2000);\r",
+									"});\r",
+									"\r",
+									"//Tests for new test data is not posted\r",
+									"//test#1\r",
+									"//pm.test(\"new test data is not posted, test#1\", function () {\r",
+									"//    pm.response.to.not.be.error;\r",
+									"//    pm.response.to.be.withBody;\r",
+									"//    pm.response.to.have.jsonBody(\"phoneNumber\")\r",
+									"//    pm.response.to.not.have.jsonBody(\"Qw+@,>\")\r",
+									"//});\r",
+									"\r",
+									"//test#2 Test for key/value is correct\r",
+									"pm.test(\"correct phone data is posted, test#2\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.phoneNumber).to.eql(\"18012233444\");\r",
+									"});\r",
+									"\r",
+									"//Test for Headers's Keys/Values are correct\r",
+									"pm.test(\"Headers's Keys/Values are correct\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");\r",
+									"    pm.response.to.have.header(\"Connection\",\"keep-alive\");\r",
+									"    pm.response.to.have.header(\"Server\",\"Pepyaka/1.15.10\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "XyHf_DlT16zyGaV2OlBhP7-bYvmKrurrtkG5-f3psXo.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIxLTA5LTAyVDE3OjU3OjM3LjUzOVoiLCJ1aWQiOiI1MWY0NDczMi1hMjJjLTQ1MDctYjMxNC1hNjBiYjMxY2I3YmYiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjgwNjBlMzlhLWNjZDQtNGI3Yi1hY2Q2LTZjNjUzMmU0Nzg5MSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMS0wOS0wMlQyMTo1NzozNy41MzlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77",
+							"protocol": "https",
+							"host": [
+								"addresses",
+								"wixapps",
+								"net"
+							],
+							"path": [
+								"_api",
+								"addresses-web",
+								"v1",
+								"addresses",
+								"d5c1e9ad-ffdf-443d-9f43-6500ae1d9c77"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
